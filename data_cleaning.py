@@ -24,21 +24,10 @@ for key, desc_list in descriptions.items():
 			desc_list[i] =  ' '.join(desc)
 
 #print(descriptions['1000268201_693b08cb0e'])
-#-------------------------------------------------------------------------------------------------------------
-
-#All the unique words present in the description
-
-all_desc = set()
-for key in descriptions.keys():
-	[all_desc.update(d.split()) for d in descriptions[key]]
-
-vocabulary=all_desc		
-
-#print('Original Vocabulary Size: %d' % len(vocabulary))-->8763
-
 #--------------------------------------------------------------------------------------------------------------
 
-## save descriptions to file, one per line
+# save descriptions to file, one per line
+
 def save_descriptions(descriptions, filename):
 	lines = list()
 	for key, desc_list in descriptions.items():
@@ -50,3 +39,18 @@ def save_descriptions(descriptions, filename):
 	file.close()
 
 save_descriptions(descriptions, 'descriptions.txt')
+
+#-------------------------------------------------------------------------------------------------------------
+
+
+#All the unique words present in the description
+
+all_desc = set()
+for key in descriptions.keys():
+	[all_desc.update(d.split()) for d in descriptions[key]]
+
+vocabulary=all_desc		
+
+#print('Original Vocabulary Size: %d' % len(vocabulary))-->8763
+
+#-------------------------------------------------------------------------------------------------------------
