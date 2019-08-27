@@ -29,7 +29,8 @@ from keras.utils import to_categorical
 filename = "Dataset/Flickr8k_text/Flickr8k.token.txt"
 file = open(filename, 'r')
 doc = file.read()
-doc1="Hello.jpg My name is sumit \n Hello.jpg akdhskjasdh"
+
+#doc1="Hello.jpg My name is sumit \n Hello.jpg akdhskjasdh"
  #print(doc)
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -37,7 +38,7 @@ doc1="Hello.jpg My name is sumit \n Hello.jpg akdhskjasdh"
 #creating a dictionary contain image name as key and caption as value.
 
 descriptions = dict()
-for line in doc1.split('\n'):
+for line in doc.split('\n'):
     # split line by white space
     tokens = line.split()
     if len(line) < 2:
@@ -53,6 +54,4 @@ for line in doc1.split('\n'):
     if image_id not in descriptions:
         descriptions[image_id] = list()
     descriptions[image_id].append(image_desc)
-
-print(descriptions);
 #-------------------------------------------------------------------------------------------------------------
