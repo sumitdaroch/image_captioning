@@ -8,7 +8,7 @@ from PIL import Image
 import glob
 from pickle import dump, load
 from time import time
-from keras.preprocessing import sequence
+from keras.preprocessing import sequence,image
 from keras.models import Sequential
 from keras.layers import LSTM, Embedding, TimeDistributed, Dense, RepeatVector,Activation, Flatten, Reshape, concatenate, Dropout, BatchNormalization
 from keras.optimizers import Adam, RMSprop
