@@ -6,6 +6,7 @@ import time
 from keras.preprocessing import image
 import numpy as np
 from keras.applications.inception_v3 import preprocess_input
+import pickle
 
 #-----------------------------------------------------------------------------------------------------------------
 #Load model
@@ -72,14 +73,35 @@ def encode(image):
 
 #-------------------------------------------------------------------------------------------------------------
 
-#Training
+#encoding of training images.
 
-start = time.time()
 i=0
+
 encoding_train = {}
 for img in train_img:
-    i=i+1
-    print(i)
-    encoding_train[img[len(images):]] = encode(img)
-print("Time taken in seconds =", time()-start)
+	i=i+1
+	print(i)
+	encoding_train[img[len(images):]] = encode(img)
 
+
+# Save the bottleneck train features to disk
+with open("Dataset/Pickle/encoded_train_images.pkl", "wb") as encoded_pickle:
+    pickle.dump(encoding_train, encoded_pickle)
+
+#--------------------------------------------------------------------------------------------------------
+
+#encoding of testing images.
+
+i=0
+encoding_test = {}
+for img in test_img:
+	i=i+1
+	print(i)
+	encoding_test[img[len(images):]] = encode(img)
+
+
+# Save the bottleneck test features to disk
+with open("Dataset/Pickle/encoded_test_images.pkl", "wb") as encoded_pickle:
+    pickle.dump(encoding_test, encoded_pickle)
+
+print("done")
