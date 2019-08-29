@@ -44,5 +44,5 @@ for line in doc.split('\n'):
 
 train_descriptions=descriptions
 
-print(train_descriptions['3241965735_8742782a70'])		
+#print(train_descriptions['3241965735_8742782a70'])		
 #-------------------------------------------------------------------------------------------------------------        

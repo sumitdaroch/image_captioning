@@ -75,33 +75,35 @@ def encode(image):
 
 #encoding of training images.
 
-i=0
+# i=0
 
-encoding_train = {}
-for img in train_img:
-	i=i+1
-	print(i)
-	encoding_train[img[len(images):]] = encode(img)
+# encoding_train = {}
+# for img in train_img:
+# 	i=i+1
+# 	print(i)
+# 	encoding_train[img[len(images):]] = encode(img)
 
 
-# Save the bottleneck train features to disk
-with open("Dataset/Pickle/encoded_train_images.pkl", "wb") as encoded_pickle:
-    pickle.dump(encoding_train, encoded_pickle)
+# # Save the bottleneck train features to disk
+# with open("Dataset/Pickle/encoded_train_images.pkl", "wb") as encoded_pickle:
+#     pickle.dump(encoding_train, encoded_pickle)
+
+# #--------------------------------------------------------------------------------------------------------
+
+# #encoding of testing images.
+
+# i=0
+# encoding_test = {}
+# for img in test_img:
+# 	i=i+1
+# 	print(i)
+# 	encoding_test[img[len(images):]] = encode(img)
+
+
+# # Save the bottleneck test features to disk
+# with open("Dataset/Pickle/encoded_test_images.pkl", "wb") as encoded_pickle:
+#     pickle.dump(encoding_test, encoded_pickle)
+
+# print("done")
 
 #--------------------------------------------------------------------------------------------------------
-
-#encoding of testing images.
-
-i=0
-encoding_test = {}
-for img in test_img:
-	i=i+1
-	print(i)
-	encoding_test[img[len(images):]] = encode(img)
-
-
-# Save the bottleneck test features to disk
-with open("Dataset/Pickle/encoded_test_images.pkl", "wb") as encoded_pickle:
-    pickle.dump(encoding_test, encoded_pickle)
-
-print("done")
