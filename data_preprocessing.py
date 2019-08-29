@@ -1,4 +1,3 @@
-import load_training_set
 from keras.models import Model
 import glob
 from keras.applications.inception_v3 import InceptionV3

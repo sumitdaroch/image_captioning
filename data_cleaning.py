@@ -1,4 +1,3 @@
-import data_understanding
 from data_understanding import descriptions
 import string
 

@@ -1,4 +1,4 @@
-import data_cleaning
+
 
 filename = 'Dataset/Flickr8k_text/Flickr_8k.trainImages.txt'
 file = open(filename, 'r')
