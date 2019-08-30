@@ -2,7 +2,7 @@ import pickle
 from load_training_set import train_descriptions
 #store the encoded train code in train_feature
 
-train_features = open("Dataset/Pickle/encoded_train_images.pkl", "rb")
+train_features = pickle.load(open("Dataset/Pickle/encoded_train_images.pkl", "rb"))
 
 #---------------------------------------------------------------------------------------------------------
 

@@ -5,7 +5,38 @@ from keras import Input, layers
 from keras.layers.merge import add
 from keras.models import Model
 from keras.layers import LSTM, Embedding, TimeDistributed, Dense, RepeatVector,Activation, Flatten, Reshape, concatenate, Dropout, BatchNormalization
-from data_preprocessing_2 import wordtoix,ixtoword,vocab_size,max_length
+from data_preprocessing_2 import wordtoix,ixtoword,vocab_size,max_length, train_features
+from load_training_set import train_descriptions
+from keras.preprocessing.sequence import pad_sequences
+
+from keras.utils import to_categorical
+
+import numpy as np
+from numpy import array
+import pandas as pd
+import matplotlib.pyplot as plt
+import string
+import os
+from PIL import Image
+import glob
+from pickle import dump, load
+from time import time
+from keras.preprocessing import sequence
+from keras.models import Sequential
+from keras.layers import LSTM, Embedding, TimeDistributed, Dense, RepeatVector,\
+                         Activation, Flatten, Reshape, concatenate, Dropout, BatchNormalization
+from keras.optimizers import Adam, RMSprop
+from keras.layers.wrappers import Bidirectional
+from keras.layers.merge import add
+from keras.applications.inception_v3 import InceptionV3
+from keras.preprocessing import image
+from keras.models import Model
+from keras import Input, layers
+from keras import optimizers
+from keras.applications.inception_v3 import preprocess_input
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+from keras.utils import to_categorical
 
 def data_generator(descriptions, photos, wordtoix, max_length, num_photos_per_batch):
     X1, X2, y = list(), list(), list()
@@ -79,3 +110,56 @@ outputs = Dense(vocab_size, activation='softmax')(decoder2)
 model = Model(inputs=[inputs1, inputs2], outputs=outputs)              
 
 print(model.summary())
+
+
+model.layers[2].set_weights([embedding_matrix])
+model.layers[2].trainable = False
+
+model.compile(loss='categorical_crossentropy', optimizer='adam')
+
+epochs = 10
+number_pics_per_batch = 3
+steps = len(train_descriptions)//number_pics_per_batch
+
+
+# for i in range(epochs):
+#     generator = data_generator(train_descriptions, train_features, wordtoix, max_length, number_pics_per_batch)
+#     model.fit_generator(generator, epochs=1, steps_per_epoch=steps, verbose=1)
+#     model.save('./model_weights/model_' + str(i) + '.h5')
+#------------------------------------------------------------------------------------------------------------------
+
+# for i in range(epochs):
+#     generator = data_generator(train_descriptions, train_features, wordtoix, max_length, number_pics_per_batch)
+#     model.fit_generator(generator, epochs=1, steps_per_epoch=steps, verbose=1)
+#     model.save('./model_weights/model_' + str(i) + '.h5')
+
+
+# model.optimizer.lr = 0.0001
+# epochs = 10
+# number_pics_per_batch = 6
+# steps = len(train_descriptions)//number_pics_per_batch
+
+# for i in range(epochs):
+#     generator = data_generator(train_descriptions, train_features, wordtoix, max_length, number_pics_per_batch)
+#     model.fit_generator(generator, epochs=1, steps_per_epoch=steps, verbose=1)
+
+# model.save_weights('./model_weights/model_30.h5')
+
+model.load_weights('./model_weights/model_30.h5')
+
+def greedySearch(photo):
+    in_text = 'startseq'
+    for i in range(max_length):
+        sequence = [wordtoix[w] for w in in_text.split() if w in wordtoix]
+        sequence = pad_sequences([sequence], maxlen=max_length)
+        yhat = model.predict([photo,sequence], verbose=0)
+        yhat = np.argmax(yhat)
+        word = ixtoword[yhat]
+        in_text += ' ' + word
+        if word == 'endseq':
+            break
+    final = in_text.split()
+    final = final[1:-1]
+    final = ' '.join(final)
+    return final
+
