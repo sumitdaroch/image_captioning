@@ -34,7 +34,7 @@ train_img = []
 for i in img: # img is list of full path names of all images
     if i[len(images):] in train_images: # Check if the image belongs to training set
         train_img.append(i) # Add it to the list of train images
-
+#print(train_img)
 #------------------------------------------------------------------------------------------------------------------
 
 # Below file conatains the names of images to be used in test data
